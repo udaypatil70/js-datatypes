@@ -47,16 +47,57 @@
  */
 export function createPaanOrder(basePaan, customizations) {
   // Your code here
+
+  if(typeof basePaan !== "object" || basePaan === null){
+    return {};
+  }
+  if(typeof customizations !== "object" || customizations === null){
+    return Object.assign({}, basePaan);
+  }
+
+  let newpaanOrder = Object.assign({},basePaan, customizations);
+  return newpaanOrder;
+
 }
 
 export function freezeMenu(menu) {
   // Your code here
+
+if(typeof menu !== "object" || menu === null){
+  return {};
+}
+
+return  Object.freeze(menu);
+
 }
 
 export function updatePrices(menu, increase) {
   // Your code here
+  if(typeof menu !== "object" || menu === null || typeof increase !== "number"){
+    return {};
+  }
+  
+  const updatedMenu = Object.fromEntries(
+    Object.entries(menu).map(([key, value]) => [key, value + increase])
+  );
+
+  return updatedMenu;
+   
 }
 
 export function mergeDailySpecials(regularMenu, specialsMenu) {
   // Your code here
+  /* 4. mergeDailySpecials(regularMenu, specialsMenu)
+ *      - Spread operator {...regularMenu, ...specialsMenu} se merge karo
+ *      - specialsMenu ki values override karengi agar same key ho
+ *      - Return: NEW merged object
+ *      - Agar koi bhi object nahi hai, usse empty {} maan lo
+ *      - Example: mergeDailySpecials({meetha:30}, {chocolate:60, meetha:40})
+ *                 => {meetha:40, chocolate:60}*/
+
+  if(typeof regularMenu !== "object" || typeof specialsMenu !== "object"){
+    return {};
+  }
+  const mergeSpecialsItems = {...regularMenu , ...specialsMenu};
+  return mergeSpecialsItems;
 }
